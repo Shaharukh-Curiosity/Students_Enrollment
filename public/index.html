@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Enrollment</title>
+  <style>
+    body { font-family: Arial; background:#f4f6f8; }
+    .box { width:400px; margin:40px auto; background:#fff; padding:20px; border-radius:8px; }
+    input, select, button { width:100%; padding:10px; margin-top:10px; }
+    button { background:#2563eb; color:white; border:none; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Student Enrollment</h2>
+
+  <form id="form">
+    <input name="name" placeholder="Student Name" required>
+    <select name="standard" required>
+      <option value="">Standard</option>
+      <option>1</option><option>2</option><option>3</option>
+      <option>4</option><option>5</option><option>6</option>
+      <option>7</option><option>8</option><option>9</option>
+      <option>10</option><option>11</option><option>12</option>
+    </select>
+    <input type="number" name="age" placeholder="Age" required>
+    <input name="schoolName" placeholder="School Name" required>
+    <input name="mobile" placeholder="Mobile Number" required>
+    <button>Enroll Student</button>
+  </form>
+</div>
+
+<script>
+document.getElementById("form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target));
+  const res = await fetch("/api/students", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  const result = await res.json();
+  alert(result.message);
+  e.target.reset();
+});
+</script>
+
+</body>
+</html>
