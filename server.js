@@ -40,6 +40,15 @@ app.post("/api/students", async (req, res) => {
     res.status(400).json({ message: "Failed to enroll student" });
   }
 });
+// -------- Get All Students --------
+app.get("/api/students", async (req, res) => {
+  try {
+    const students = await Student.find().sort({ createdAt: -1 });
+    res.json(students);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch students" });
+  }
+});
 
 // -------- Serve Frontend --------
 const __filename = fileURLToPath(import.meta.url);
